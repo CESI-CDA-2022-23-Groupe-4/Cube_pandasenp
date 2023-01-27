@@ -1,0 +1,3 @@
+[submodule "symfony-pense-bete"]
+	path = symfony-pense-bete
+	url = https://github.com/FBanitz/symfony-pense-bete

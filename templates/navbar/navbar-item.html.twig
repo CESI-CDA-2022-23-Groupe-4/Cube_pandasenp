@@ -1,0 +1,44 @@
+{% block navbar_item %}
+    {% if (route.needs_role == null or is_granted(route.needs_role)) and (not is_granted('ROLE_USER') or route.shown_connected) %}
+        {% if route.type == 'link' %}
+            <li class="nav-item">
+                <a class="nav-link {% if route.route == current_route %}active disabled{% endif %}" href="{{ path(route.route) }}">{{ route.name }}</a>
+            </li>
+        {% elseif route.type == 'dropdown' %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle {% if route.route == current_route %}active disabled{% endif %}" href="#" id="{{ route.name|lower }}-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {% if route.icon is defined %}
+                        <i class="bi {{ route.icon }}"></i>
+                    {% endif %}
+                    {{ route.name }}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="{{ route.name|lower }}-dropdown">
+                    {% for subroute in route.subroutes %}
+                        {% if (not subroute.needs_role is defined or is_granted(subroute.needs_role)) and (not is_granted('ROLE_USER') or subroute.shown_connected) %}
+                            <li>
+                                <a class="dropdown-item {% if subroute.route == current_route %}active disabled{% endif %}" href="{{ path(subroute.route) }}">{{ subroute.name }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </li>
+        {% elseif route.type == 'collapse' %}
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#{{ route.name|lower }}-menu" role="button" aria-expanded="false" aria-controls="menu">
+                    {{ route.name }}
+                </a>
+                <ul id="{{ route.name|lower }}-menu" class="collapse">
+                    <div class="card border-dark">
+                        <div class="list-group list-group-flush">
+                            {% for subroute in route.subroutes %}
+                                {% if (not subroute.need_role is defined or is_granted(subroute.need_role)) and (not is_granted('ROLE_USER') or subroute.shown_connected) %}
+                                    <a class="list-group-item {% if subroute.route == current_route %}active{% endif %}" href="{{ path(subroute.route) }}">{{ subroute.name }}</a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </ul>
+            </li>
+        {% endif %}
+    {% endif %}
+{% endblock %}

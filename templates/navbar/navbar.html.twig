@@ -1,0 +1,25 @@
+{% block navbar %}
+	{% set current_route = app.request.attributes.get('_route') %}
+	<nav class="navbar sticky-top z-1 navbar-expand-lg bg-body-tertiary">
+
+		<div class="mx-3 container-fluid">
+			<div class="navbar-brand position-relative">
+				<img id="pendasenp-logo" src="{{ asset('images/logo.png') }}" alt="Pendasenp Logo" height="75">
+				Pandasenp
+				<a class="stretched-link" href="{{ path('app_home') }}"></a>
+			</div>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavDropdown">
+				<ul class="navbar-nav">
+					{% for route in navbar_routes %}
+						{% block navbar_item %}
+							{% include ("navbar/navbar-item.html.twig") %}
+						{% endblock %}
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</nav>
+{% endblock %}

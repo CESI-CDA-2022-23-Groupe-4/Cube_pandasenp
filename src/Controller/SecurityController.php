@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Constants;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,7 +23,6 @@ class SecurityController extends AbstractController
 
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
-            'navbar_routes' => Constants::navbar_routes,
             'error' => $error,
             'page_title' => 'Login'
         ]);

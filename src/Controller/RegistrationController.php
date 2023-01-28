@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Constants;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\Authenticator;
@@ -46,7 +45,6 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'error' => null,
-            'navbar_routes' => Constants::navbar_routes,
             'page_title' => 'Register',
             'registrationForm' => $form->createView(),
         ]);

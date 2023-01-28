@@ -44,6 +44,10 @@ class RegistrationController extends AbstractController
             );
         }
 
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_home', ['error' => 'You are already logged in']);
+        }
+
         return $this->render('registration/register.html.twig', [
             'error' => null,
             'navbar_routes' => Constants::navbar_routes,
